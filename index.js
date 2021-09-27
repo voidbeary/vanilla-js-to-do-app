@@ -1,3 +1,6 @@
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.register("/service-worker.js");
+}
 const formElement = document.querySelector("form");
 formElement.onsubmit = handleSubmit;
 
