@@ -7,20 +7,26 @@ function handleSubmit(e) {
   e.preventDefault();
 
   const newItemElement = e.target.elements["new-item"];
-  const toDoText = newItemElement.value;
+
+  const toDo = {
+    value: newItemElement.value,
+    id: `todo-${Date.now()}`,
+  };
+
   newItemElement.value = "";
 
-  addToDo(toDoText);
-  saveToDos(toDoText);
+  addToDo(toDo);
+  saveToDo(toDo);
 }
-function addToDo(toDoText) {
+function addToDo({ value, id }) {
   const newListItem = document.createElement("li");
 
   const newInputForListItem = document.createElement("input");
   newInputForListItem.onclick = handleClick;
   newListItem.appendChild(newInputForListItem);
-  newListItem.append(toDoText);
+  newListItem.append(value);
   newListItem.classList.add("list-group-item");
+  newListItem.setAttribute("id", id);
 
   newInputForListItem.setAttribute("type", "checkbox");
   newInputForListItem.setAttribute("value", "");
@@ -31,14 +37,14 @@ function addToDo(toDoText) {
 
   document.querySelector("ul").appendChild(newListItem);
 }
-function saveToDos(toDoText) {
+function saveToDo(toDo) {
   const oldArr = getToDos();
-  const newToDoArr = [...oldArr, toDoText];
+  const newToDoArr = [...oldArr, toDo];
   localStorage.setItem("todos", JSON.stringify(newToDoArr));
 }
 
 function getToDos() {
-  const toDosString = localStorage["todos"] || "[]";
+  const toDosString = localStorage.todos || "[]";
   const toDos = JSON.parse(toDosString);
   return toDos;
 }
@@ -47,6 +53,12 @@ function handleClick(e) {
   element.classList.add("animate__flipOutX");
   const handleAnimationEnd = () => {
     element.remove();
+    removeToDo(element.id);
   };
   element.addEventListener("animationend", handleAnimationEnd);
+}
+function removeToDo(id) {
+  const toDos = getToDos();
+  const newToDos = toDos.filter((toDo) => toDo.id !== id);
+  localStorage.setItem("todos", JSON.stringify(newToDos));
 }
