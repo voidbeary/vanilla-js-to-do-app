@@ -8,6 +8,12 @@ const { CacheableResponsePlugin } = workbox.cacheableResponse;
 const { ExpirationPlugin } = workbox.expiration;
 
 registerRoute(
+  ({ url }) => url.pathname === "/",
+  new CacheFirst({
+    cacheName: "html-cashe",
+  })
+);
+registerRoute(
   ({ request }) => request.destination === "image",
   new CacheFirst()
 );
