@@ -8,7 +8,7 @@ const { CacheableResponsePlugin } = workbox.cacheableResponse;
 const { ExpirationPlugin } = workbox.expiration;
 
 registerRoute(
-  ({ url }) => url.pathname === "/",
+  ({ url }) => url.pathname === "/vanilla-js-to-do-app/",
   new CacheFirst({
     cacheName: "html-cashe",
   })
