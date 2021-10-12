@@ -1,5 +1,5 @@
 if (navigator.serviceWorker) {
-  navigator.serviceWorker.register("/service-worker.js");
+  navigator.serviceWorker.register("/vanilla-js-to-do-app/service-worker.js");
 }
 const formElement = document.querySelector("form");
 formElement.onsubmit = handleSubmit;
