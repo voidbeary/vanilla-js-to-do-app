@@ -1,7 +1,7 @@
 {
   "name": "To do app",
   "short_name": "To do",
-  "start_url": ".",
+  "start_url": "./vanilla-js-to-do-app",
   "icons": [
     {
       "src": "icons/manifest-icon-192.png",
